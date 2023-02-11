@@ -1,0 +1,52 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-1;
+  display: flex;
+  flex-direction: column;
+}
+
+.flex {
+  display: flex;
+
+  &.drc {
+    &-col {
+      flex-direction: column;
+    }
+    &-row {
+      flex-direction: row;
+    }
+  }
+
+  &.jc {
+    &-str {
+      justify-content: flex-start;
+    }
+    &-ctr {
+      justify-content: center;
+    }
+    &-end {
+      justify-content: flex-end;
+    }
+  }
+
+  &.ai {
+    &-str {
+      align-items: flex-start;
+    }
+    &-ctr {
+      align-items: center;
+    }
+    &-end {
+      align-items: flex-end;
+    }
+  }
+
+  &-grow {
+    flex-grow: 1;
+  }
+}
+
+.w-100 {
+  width: 100%;
+}

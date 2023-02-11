@@ -4,6 +4,12 @@ export interface RaceTable {
     Races: Race[];
 }
 
+export interface RaceTable {
+    season: string;
+    position: string;
+    Races: Race[];
+}
+
 export interface Race {
     season: string;
     round: string;

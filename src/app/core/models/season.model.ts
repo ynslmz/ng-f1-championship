@@ -1,17 +1,3 @@
-export interface Main {
-    MRData: MRData;
-}
-
-export interface MRData {
-    xmlns: string;
-    series: string;
-    url: string;
-    limit: string;
-    offset: string;
-    total: string;
-    StandingsTable: StandingsTable;
-}
-
 export interface StandingsTable {
     driverStandings: string;
     StandingsLists: StandingsList[];

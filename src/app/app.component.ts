@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { App } from './shared/store/app.action';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'NgMobiquity';
+  constructor(store: Store) {
+    store.dispatch(new App.LoadSeasons())
+  }
 }

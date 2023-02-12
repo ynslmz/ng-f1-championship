@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
-import { Race } from '../core/models/race.model';
-import { StandingsList } from '../core/models/season.model';
-import { RaceService } from '../core/services/race.service';
-import { SeasonService } from '../core/services/season.service';
+import { Component, OnDestroy } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { map, Observable } from 'rxjs';
+import { Race } from '../shared/models/race.model';
+import { StandingsList } from '../shared/models/season.model';
+import { App } from '../shared/store/app.action';
+import { AppState } from '../shared/store/app.state';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +12,16 @@ import { SeasonService } from '../core/services/season.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  seasonList!: StandingsList[];
-  races!: Race[]
-  constructor(seasonService: SeasonService, race: RaceService) {
-    seasonService.getSeasons().subscribe((res) => this.seasonList = res)
-    race.getRaceList('2008').subscribe(res => this.races = res)
+
+  @Select(AppState.standingList) seasonList$!: Observable<StandingsList>
+  races$: Observable<Race[]>
+
+  constructor(store: Store) {
+    this.races$ = store.select(AppState.racesByYear).pipe(
+      map(
+        fn => fn('2008').races
+      )
+    )
+    store.dispatch(new App.LoadRaces('2008', '200812r'));
   }
-
-
 }

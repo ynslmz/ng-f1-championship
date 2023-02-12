@@ -1,12 +1,16 @@
 <div class="flex js-ctr ai-str">
     <div>
+        <h4>
+            Season List
+        </h4>
         <pre>
-    {{seasonList | json}}
-</pre>
+            {{seasonList$ | async | json}}
+        </pre>
     </div>
     <div>
+        <h4>Race List</h4>
         <pre>
-            {{races | json}}
+            {{races$ | async | json}}
         </pre>
     </div>
 </div>

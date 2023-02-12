@@ -1,5 +1,6 @@
 <div class="modal-overlay" [ngClass]="{ 'show': isVisible }" (click)="closeModal()">
     <div class="modal" [ngClass]="{ 'show': isVisible }" (click)="preventPropagation($event)">
+        <span class="close-button" (click)="closeModal()">x</span>
         <ng-content></ng-content>
     </div>
 </div>

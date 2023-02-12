@@ -29,6 +29,7 @@
                 <table class="race-result">
                     <thead>
                         <tr>
+                            <th>Round</th>
                             <th>Circuit</th>
                             <th>Winner</th>
                             <th>Constructor</th>
@@ -36,6 +37,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let race of races" [ngClass]="{'highlighted': race.highlighted}">
+                            <td>{{race.round}}</td>
                             <td>{{race.Circuit.circuitName}}</td>
                             <td> {{race.Results[0].Driver|driver}}</td>
                             <td> {{race.Results[0].Constructor.name}}</td>

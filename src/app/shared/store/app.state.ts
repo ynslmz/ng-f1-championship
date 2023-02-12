@@ -12,10 +12,7 @@ export interface AppStateModel {
     error: any;
     standingList: StandingsList[];
     racesByYear: {
-        [key: string]: {
-            winnerId: string,
-            races: Race[]
-        }
+        [key: string]: Race[]
     }
 }
 
@@ -54,10 +51,7 @@ export class AppState {
                     ...ctx.getState(),
                     racesByYear: {
                         ...state.racesByYear,
-                        [action.year]: {
-                            winnerId: action.driverId,
-                            races: res
-                        }
+                        [action.year]: res
                     }
                 })
             })

@@ -19,6 +19,7 @@ export interface Race {
     date: Date;
     time: string;
     Results: Result[];
+    highlighted?: boolean;
 }
 
 export interface Circuit {

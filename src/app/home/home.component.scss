@@ -1,0 +1,29 @@
+@import "../../assets/styles/variables.scss";
+
+.title {
+  margin: $spacing-2 0;
+}
+
+span {
+  padding: $spacing-1;
+}
+
+.item {
+  padding: $spacing-1 0;
+  border-radius: $spacing-1;
+
+  &:hover {
+    background-color: $white;
+  }
+}
+
+.highlighted {
+  background-color: $primary;
+}
+
+.race-result {
+  td,
+  th {
+    padding: $spacing-1;
+  }
+}

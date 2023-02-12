@@ -13,15 +13,27 @@ import { AppState } from '../shared/store/app.state';
 })
 export class HomeComponent {
 
-  @Select(AppState.standingList) seasonList$!: Observable<StandingsList>
-  races$: Observable<Race[]>
+  showModal = false;
+  @Select(AppState.standingList) seasonList$!: Observable<StandingsList[]>;
+  races$!: Observable<Race[]>;
+  driverId: string = "";
 
-  constructor(store: Store) {
-    this.races$ = store.select(AppState.racesByYear).pipe(
+  constructor(private store: Store) { }
+
+
+  private buildRacesSelector(year: string) {
+    this.races$ = this.store.select(AppState.racesByYear).pipe(
       map(
-        fn => fn('2008').races
+        fn => fn(year).map(y => ({ ...y, highlighted: this.driverId === y.Results[0].Driver.driverId }))
       )
-    )
-    store.dispatch(new App.LoadRaces('2008', '200812r'));
+    );
   }
+
+  reqeustSeasonDetail(season: string, driverId: string) {
+    this.driverId = driverId;
+    this.store.dispatch(new App.LoadRaces(season));
+    this.buildRacesSelector(season);
+    this.showModal = true
+  }
+
 }

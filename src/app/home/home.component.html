@@ -1,16 +1,49 @@
-<div class="flex js-ctr ai-str">
-    <div>
-        <h4>
-            Season List
-        </h4>
-        <pre>
-            {{seasonList$ | async | json}}
-        </pre>
-    </div>
-    <div>
-        <h4>Race List</h4>
-        <pre>
-            {{races$ | async | json}}
-        </pre>
+<div class="row">
+    <div class="col">
+
+        <h4 class="title">Season List</h4>
+
+        <ng-container *ngIf="(seasonList$ | async) as items">
+            <ul>
+                <li class="flex jc-sb ai-str">
+                    <span>Season</span>
+                    <span>Driver</span>
+                    <span>Constructor</span>
+                </li>
+                <li *ngFor="let item of items" class="item">
+                    <a (click)="reqeustSeasonDetail(item.season, item.DriverStandings[0].Driver.driverId)"
+                        class="flex jc-sb ai-str">
+                        <span>{{item.season}}</span>
+                        <span>
+                            {{item.DriverStandings[0].Driver |
+                            driver}}
+                        </span>
+                        <span> {{item.DriverStandings[0].Constructors[0].name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </ng-container>
+
+        <app-modal [isVisible]="showModal" (close)="showModal = false">
+            <ng-container *ngIf="(races$ | async) as races">
+                <table class="race-result">
+                    <thead>
+                        <tr>
+                            <th>Circuit</th>
+                            <th>Winner</th>
+                            <th>Constructor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let race of races" [ngClass]="{'highlighted': race.highlighted}">
+                            <td>{{race.Circuit.circuitName}}</td>
+                            <td> {{race.Results[0].Driver|driver}}</td>
+                            <td> {{race.Results[0].Constructor.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </ng-container>
+        </app-modal>
     </div>
 </div>

@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from './components/modal/modal.component';
+import { DriverPipe } from './pipes/driver.pipe';
 
 
 
 @NgModule({
   declarations: [
-    ModalComponent
+    ModalComponent,
+    DriverPipe
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    ModalComponent
+    ModalComponent,
+    DriverPipe
   ]
 })
 export class SharedModule { }

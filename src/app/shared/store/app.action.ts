@@ -9,6 +9,6 @@ export namespace App {
 
     export class LoadRaces {
         static readonly type = "[App] Load Races"
-        constructor(public year: string, public driverId: string) { }
+        constructor(public year: string) { }
     }
 } 

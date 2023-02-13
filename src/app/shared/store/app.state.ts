@@ -75,6 +75,10 @@ export class AppState {
         })
     }
 
+    @Action(App.LogError)
+    logError(ctx: StateContext<AppStateModel>, action: App.LogError) {
+        ctx.patchState({ error: action.error })
+    }
 
 
 

@@ -21,4 +21,9 @@ export namespace App {
         static readonly type = '[Loading Interceptor] Loading Ended'
         constructor(public url: string) { }
     }
+
+    export class LogError {
+        static readonly type = '[Api Service] Log Error'
+        constructor(public error: Error) { }
+    }
 } 

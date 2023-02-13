@@ -1,9 +1,8 @@
-<div class="row">
-    <div class="col">
-
-        <h4 class="title">Season List</h4>
-
-        <ng-container *ngIf="(seasonList$ | async) as items">
+<div class="w-100">
+    <ng-container *ngIf="(seasonList$ | async) as items">
+        <app-loading *ngIf="items.length===0 else list"></app-loading>
+        <ng-template #list>
+            <h4 class="title">Season List</h4>
             <ul>
                 <li class="flex jc-sb ai-str">
                     <span>Season</span>
@@ -22,11 +21,15 @@
                     </a>
                 </li>
             </ul>
-        </ng-container>
+        </ng-template>
+    </ng-container>
 
-        <app-modal [isVisible]="showModal" (close)="showModal = false">
-            <ng-container *ngIf="(races$ | async) as races">
-                <table class="race-result">
+    <app-modal [isVisible]="showModal" (close)="showModal = false">
+
+        <ng-container *ngIf="(races$ | async) as races">
+            <app-loading *ngIf="races.length===0 else table"></app-loading>
+            <ng-template #table>
+                <table #table class="race-result">
                     <thead>
                         <tr>
                             <th>Round</th>
@@ -44,8 +47,8 @@
                         </tr>
                     </tbody>
                 </table>
+            </ng-template>
+        </ng-container>
+    </app-modal>
 
-            </ng-container>
-        </app-modal>
-    </div>
 </div>

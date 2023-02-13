@@ -11,4 +11,14 @@ export namespace App {
         static readonly type = "[App] Load Races"
         constructor(public year: string) { }
     }
+
+
+    export class LoadingStarted {
+        static readonly type = '[Loading Interceptor] Loading Started'
+        constructor(public url: string) { }
+    }
+    export class LoadingEnded {
+        static readonly type = '[Loading Interceptor] Loading Ended'
+        constructor(public url: string) { }
+    }
 } 

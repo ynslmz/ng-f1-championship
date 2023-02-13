@@ -8,7 +8,7 @@ import { SeasonService } from '../services/season.service';
 import { App } from './app.action';
 
 export interface AppStateModel {
-    loading: boolean;
+    loadingUrls: string[];
     error: any;
     standingList: StandingsList[];
     racesByYear: {
@@ -17,7 +17,7 @@ export interface AppStateModel {
 }
 
 const defaultState: AppStateModel = {
-    loading: false,
+    loadingUrls: [],
     error: null,
     standingList: [],
     racesByYear: {}
@@ -35,8 +35,7 @@ export class AppState {
     @Action(App.LoadSeasons)
     loadSeasons(ctx: StateContext<AppStateModel>) {
         lastValueFrom(this.seasonService.getSeasons()).then((res) => {
-            ctx.setState({
-                ...ctx.getState(),
+            ctx.patchState({
                 standingList: res
             })
         })
@@ -47,8 +46,7 @@ export class AppState {
         let state = ctx.getState()
         if (!state.racesByYear[action.year]) {
             lastValueFrom(this.raceService.getRaceList(action.year)).then((res) => {
-                ctx.setState({
-                    ...ctx.getState(),
+                ctx.patchState({
                     racesByYear: {
                         ...state.racesByYear,
                         [action.year]: res
@@ -58,6 +56,26 @@ export class AppState {
         }
         return;
     }
+
+    @Action(App.LoadingStarted)
+    loadingStarted(ctx: StateContext<AppStateModel>, action: App.LoadingStarted) {
+        let state = ctx.getState()
+        ctx.patchState({
+            loadingUrls: [...state.loadingUrls, action.url]
+        })
+    }
+
+    @Action(App.LoadingEnded)
+    loadingEnded(ctx: StateContext<AppStateModel>, action: App.LoadingEnded) {
+        let loadingUrls = [...ctx.getState().loadingUrls]
+        const index = loadingUrls.findIndex(u => u === action.url);
+        loadingUrls.splice(index, 1)
+        ctx.patchState({
+            loadingUrls: [...loadingUrls]
+        })
+    }
+
+
 
 
     @Selector()
@@ -70,6 +88,11 @@ export class AppState {
         return (year: string) => {
             return state.racesByYear[year] || []
         }
+    }
+
+    @Selector()
+    static selectIsLoading(state: AppStateModel) {
+        return state.loadingUrls.length > 0
     }
 
 }

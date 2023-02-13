@@ -9,7 +9,9 @@ import { App } from './shared/store/app.action';
 })
 export class AppComponent {
   title = 'NgMobiquity';
+
   constructor(store: Store) {
     store.dispatch(new App.LoadSeasons())
   }
+
 }

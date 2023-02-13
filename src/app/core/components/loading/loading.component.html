@@ -1,11 +1,13 @@
-<div class="lds-grid" *ngIf="visibility$|async as visibility" [ngClass]="{'d-none':!visibility }">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+<div class="backdrop" *ngIf="visibility$|async as visibility" [ngClass]="{'d-none':!visibility }">
+    <div class="lds-grid">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </div>
